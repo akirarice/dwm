@@ -1639,7 +1639,7 @@ sigchld(int unused)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd || arg->v == dvim || arg->v == bksrf || arg->v == mpdmenu)
+	if (arg->v != termcmd || arg->v != &layouts[0] || arg->v != &layouts[1] || arg->v != &layouts[2])
 		dmenumon[0] = '0' + selmon->num;
 	if (fork() == 0) {
 		if (dpy)

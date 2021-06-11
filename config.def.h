@@ -61,6 +61,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon,"-h", "40", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", "#2a9d8f", "-sf", col_gray4, NULL };
+static const char *passmenu[] = { "passmenu", "-m", dmenumon, "-h", "40", "--type", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *dvim[] = {"dvim", dmenumon, NULL};
 static const char *bksrf[] = {"bookmarksurf.sh", dmenumon, NULL};
@@ -74,6 +75,7 @@ static Key keys[] = {
 	{ SUPER,			XK_w,	   spawn,          {.v = bksrf } },
 	{ SUPER,			XK_n,	   spawn,   	   SHCMD(TERMINAL " -e newsboat") }, 
 	{ SUPER,			XK_o,      spawn,	   {.v = mpdmenu } },
+	{ SUPER,			XK_u,	   spawn,          {.v = passmenu } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
