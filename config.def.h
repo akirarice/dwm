@@ -61,21 +61,32 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon,"-h", "40", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", "#2a9d8f", "-sf", col_gray4, NULL };
-static const char *passmenu[] = { "passmenu", "-m", dmenumon, "-h", "40", "--type", NULL };
+static const char *passmenu[] = { "passmenu","--type","-m", dmenumon, "-h", "40", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *dvim[] = {"dvim", dmenumon, NULL};
 static const char *bksrf[] = {"bookmarksurf.sh", dmenumon, NULL};
 static const char *mpdmenu[] = {"mpdmenu", dmenumon, NULL};
+static const char *vmlauncher[] = {"vmlauncher",dmenumon, NULL};
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } }, 
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,		XK_p,	   spawn,	   {.v = dvim } },
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x duckduckgo.com") },
+	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
+	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
+	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
+	{ SUPER|ShiftMask,		XK_u,	   spawn,	   SHCMD("passmenu-otp --type") },
 	{ SUPER,			XK_w,	   spawn,          {.v = bksrf } },
 	{ SUPER,			XK_n,	   spawn,   	   SHCMD(TERMINAL " -e newsboat") }, 
 	{ SUPER,			XK_o,      spawn,	   {.v = mpdmenu } },
 	{ SUPER,			XK_u,	   spawn,          {.v = passmenu } },
+	{ MODKEY,			XK_Down,   spawn,	   SHCMD("amixer sset Master 5%-") },
+	{ MODKEY,			XK_Up,     spawn,  	   SHCMD("amixer sset Master 5%+") },
+	{ SUPER,			XK_Right,  spawn,	   SHCMD("mpc next") },
+	{ SUPER,			XK_Left,   spawn,	   SHCMD("mpc prev") },
+	{ SUPER,			XK_Down,   spawn,	   SHCMD("mpc toggle") },
+	{ SUPER|ShiftMask,		XK_m,      spawn,	   {.v = vmlauncher } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
