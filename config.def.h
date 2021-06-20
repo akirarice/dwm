@@ -61,7 +61,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon,"-h", "40", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", "#2a9d8f", "-sf", col_gray4, NULL };
-static const char *passmenu[] = { "passmenu","--type","-m", dmenumon, "-h", "40", NULL };
+static const char *pass[] = { "pmenu","-m", dmenumon,"--type", NULL };
+static const char *passotp[] = { "pmenu","otp","-m", dmenumon,"--type", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *dvim[] = {"dvim", dmenumon, NULL};
 static const char *bksrf[] = {"bookmarksurf.sh", dmenumon, NULL};
@@ -76,11 +77,11 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
-	{ SUPER|ShiftMask,		XK_u,	   spawn,	   SHCMD("pmenu otp --type") },
+	{ SUPER|ShiftMask,		XK_u,	   spawn,	   {.v = passotp } },
 	{ SUPER,			XK_w,	   spawn,          {.v = bksrf } },
 	{ SUPER,			XK_n,	   spawn,   	   SHCMD(TERMINAL " -e newsboat") }, 
 	{ SUPER,			XK_o,      spawn,	   {.v = mpdmenu } },
-	{ SUPER,			XK_u,	   spawn,          SHCMD("pmenu --type") },
+	{ SUPER,			XK_u,	   spawn,          {.v = pass } },
 	{ MODKEY,			XK_Down,   spawn,	   SHCMD("amixer sset Master 3%-") },
 	{ MODKEY,			XK_Up,     spawn,  	   SHCMD("amixer sset Master 3%+") },
 	{ SUPER,			XK_Right,  spawn,	   SHCMD("mpc next") },
