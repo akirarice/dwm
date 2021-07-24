@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 12;
+static const unsigned int gappx     = 8;
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -34,7 +34,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.60; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -78,7 +78,9 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x searx.bar") },
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
-	{ SUPER,			XK_b,	   spawn,	   SHCMD("brave") },
+	{ SUPER,			XK_b,	   spawn,	   SHCMD("icecat") },
+	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("icecat --private-window") },
+	{ SUPER,			XK_e,	   spawn,	   SHCMD(TERMINAL " -e neomutt") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
 	{ SUPER|ShiftMask,		XK_u,	   spawn,	   {.v = passotp } },
 	{ SUPER|MODKEY,			XK_u,	   spawn,	   {.v = passcopy } },
@@ -92,6 +94,8 @@ static Key keys[] = {
 	{ SUPER,			XK_Left,   spawn,	   SHCMD("mpc prev") },
 	{ SUPER,			XK_Down,   spawn,	   SHCMD("mpc toggle") },
 	{ SUPER|ShiftMask,		XK_m,      spawn,	   {.v = vmlauncher } },
+	{ SUPER|ShiftMask,		XK_g,	   spawn,	   SHCMD("yt_clipboard") },
+	{ SUPER|ShiftMask,		XK_z,	   spawn,	   SHCMD("start_webcam") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
