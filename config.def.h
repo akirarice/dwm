@@ -6,7 +6,7 @@ static const unsigned int gappx     = 8;
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "Liberation Mono:size=12", "Noto Color Emoji:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Liberation Mono:size=14";
 static const char col_gray1[]       = "#222222";
@@ -21,7 +21,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5" };
+static const char *tagsalt[] = { "1", "2", "3", "4", "5" };
+static const char *tags[] = { "1", "2", "3", "", ""};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -29,8 +30,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
+	{ "Steam",    NULL,       NULL,       1 << 4,       0,           -1 },
+	{ "discord",  NULL,       NULL,       1 << 3,       0,           -1 },
 };
 
 /* layout(s) */
@@ -40,7 +42,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]",      tile },    /* first entry is default */
+	{ "[+]",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
@@ -58,6 +60,10 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
+
+/* include XF86 keys */
+#include <X11/XF86keysym.h>
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -78,24 +84,36 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x searx.bar") },
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
-	{ SUPER,			XK_b,	   spawn,	   SHCMD("icecat") },
-	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("icecat --private-window") },
+	{ SUPER,			XK_b,	   spawn,	   SHCMD("chromium") },
+	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("chromium --incognito") },
 	{ SUPER,			XK_e,	   spawn,	   SHCMD(TERMINAL " -e neomutt") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
+	{ SUPER|ShiftMask,		XK_l,	   spawn,	   SHCMD("slock") },
 	{ SUPER|ShiftMask,		XK_u,	   spawn,	   {.v = passotp } },
 	{ SUPER|MODKEY,			XK_u,	   spawn,	   {.v = passcopy } },
 	{ SUPER,			XK_w,	   spawn,          {.v = bksrf } },
 	{ SUPER,			XK_n,	   spawn,   	   SHCMD(TERMINAL " -e newsboat") }, 
 	{ SUPER,			XK_o,      spawn,	   {.v = mpdmenu } },
 	{ SUPER,			XK_u,	   spawn,          {.v = pass } },
-	{ MODKEY,			XK_Down,   spawn,	   SHCMD("amixer sset Master 3%-") },
-	{ MODKEY,			XK_Up,     spawn,  	   SHCMD("amixer sset Master 3%+") },
+	{ MODKEY,			XK_Down,   spawn,	   SHCMD("changevolume -d3") },
+	{ MODKEY,			XK_Up,     spawn,  	   SHCMD("changevolume -i3") },
 	{ SUPER,			XK_Right,  spawn,	   SHCMD("mpc next") },
 	{ SUPER,			XK_Left,   spawn,	   SHCMD("mpc prev") },
 	{ SUPER,			XK_Down,   spawn,	   SHCMD("mpc toggle") },
 	{ SUPER|ShiftMask,		XK_m,      spawn,	   {.v = vmlauncher } },
 	{ SUPER|ShiftMask,		XK_g,	   spawn,	   SHCMD("yt_clipboard") },
 	{ SUPER|ShiftMask,		XK_z,	   spawn,	   SHCMD("start_webcam") },
+	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("amixer sset Master toggle") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("amixer sset Master 3%+") },
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("amixer sset Master 3%-") },
+	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
+	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
+	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
+	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc toggle") },
+	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 15") },
+	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15") },
+	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock") },
+	{ MODKEY,                       XK_n,      togglealttag,   {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
