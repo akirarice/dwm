@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 
 /* tagging */
 static const char *tagsalt[] = { "1", "2", "3", "4", "5" };
-static const char *tags[] = { "1", "2", "3", "", ""};
+static const char *tags[] = { "","","","", ""};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -32,7 +32,8 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            0,           -1 },
 	{ "Steam",    NULL,       NULL,       1 << 4,       0,           -1 },
-	{ "discord",  NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "discord",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "PortalWars-Linux-Shipping", NULL, NULL, 1 << 3,  0,		 -1 },
 };
 
 /* layout(s) */
@@ -84,8 +85,8 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x searx.bar") },
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
-	{ SUPER,			XK_b,	   spawn,	   SHCMD("chromium") },
-	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("chromium --incognito") },
+	{ SUPER,			XK_b,	   spawn,	   SHCMD("brave") },
+	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("brave --incognito") },
 	{ SUPER,			XK_e,	   spawn,	   SHCMD(TERMINAL " -e neomutt") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
 	{ SUPER|ShiftMask,		XK_l,	   spawn,	   SHCMD("slock") },
