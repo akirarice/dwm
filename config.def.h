@@ -85,8 +85,8 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x searx.bar") },
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
-	{ SUPER,			XK_b,	   spawn,	   SHCMD("brave") },
-	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("brave --incognito") },
+	{ SUPER,			XK_b,	   spawn,	   SHCMD("firefox") },
+	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("firefox --pirvate-window") },
 	{ SUPER,			XK_e,	   spawn,	   SHCMD(TERMINAL " -e neomutt") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
 	{ SUPER|ShiftMask,		XK_l,	   spawn,	   SHCMD("slock") },
@@ -139,6 +139,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,             XK_Home,   spawn,   SHCMD("dm-tool switch-to-greeter") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
