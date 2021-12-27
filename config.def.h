@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 8;
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -85,17 +85,17 @@ static Key keys[] = {
 	{ SUPER|ShiftMask,		XK_w,	   spawn,          SHCMD("tabbed -cr2 surf -e x searx.bar") },
 	{ SUPER|ShiftMask,		XK_o,	   spawn,	   SHCMD(TERMINAL " -e ncmpcpp") },
 	{ SUPER,			XK_v,	   spawn,	   SHCMD("sxiv -t $WALLPAPERS") },
-	{ SUPER,			XK_b,	   spawn,	   SHCMD("firefox") },
-	{ SUPER|ShiftMask,		XK_b,	   spawn,	   SHCMD("firefox --pirvate-window") },
+	{ MODKEY,			XK_b,	   spawn,	   SHCMD("firefox") },
+	{ MODKEY|ShiftMask,		XK_b,	   spawn,	   SHCMD("firefox -private") },
 	{ SUPER,			XK_e,	   spawn,	   SHCMD(TERMINAL " -e neomutt") },
 	{ SUPER|ShiftMask,		XK_y,	   spawn,	   SHCMD("bookmarker.sh") },
 	{ SUPER|ShiftMask,		XK_l,	   spawn,	   SHCMD("slock") },
-	{ SUPER|ShiftMask,		XK_u,	   spawn,	   {.v = passotp } },
-	{ SUPER|MODKEY,			XK_u,	   spawn,	   {.v = passcopy } },
+	{ MODKEY|ShiftMask,		XK_u,	   spawn,	   SHCMD("pmenu-rofi otp --type") },
+	{ MODKEY|MODKEY,		XK_u,	   spawn,	   SHCMD("pmenu-rofi") },
 	{ SUPER,			XK_w,	   spawn,          {.v = bksrf } },
 	{ SUPER,			XK_n,	   spawn,   	   SHCMD(TERMINAL " -e newsboat") }, 
 	{ SUPER,			XK_o,      spawn,	   {.v = mpdmenu } },
-	{ SUPER,			XK_u,	   spawn,          {.v = pass } },
+	{ MODKEY,			XK_u,	   spawn,          SHCMD("pmenu-rofi --type") },
 	{ MODKEY,			XK_Down,   spawn,	   SHCMD("changevolume -d3") },
 	{ MODKEY,			XK_Up,     spawn,  	   SHCMD("changevolume -i3") },
 	{ SUPER,			XK_Right,  spawn,	   SHCMD("mpc next") },
@@ -115,7 +115,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15") },
 	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock") },
 	{ MODKEY,                       XK_n,      togglealttag,   {0} },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ SUPER|ShiftMask,              XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -139,6 +139,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+        { MODKEY,                       XK_Right,  viewnext,       {0} },
+        { MODKEY,                       XK_Left,   viewprev,       {0} },
+        { MODKEY|ShiftMask,             XK_Right,  tagtonext,      {0} },
+        { MODKEY|ShiftMask,             XK_Left,   tagtoprev,      {0} },
 	{ MODKEY|ShiftMask,             XK_Home,   spawn,   SHCMD("dm-tool switch-to-greeter") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
